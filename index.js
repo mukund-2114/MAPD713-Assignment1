@@ -5,18 +5,29 @@ const port = 3000
 let getRequest = 0
 let postRequest = 0
 
-const products = [
-    
-]
+let dataStore = {
+    products:[]
+}
 
+app.use(express.json())
 app.get('/products', (req, res) => {
     getRequest++
     console.log("products GET: received request")
-    console.log("products GET: sending response")
-
     console.log(`Processed Request Count--> GET:${getRequest}, POST: ${postRequest}`)
-    res.json({"message":"Success"})
+    console.log("products GET: sending response")
+    res.json(dataStore)
     
+})
+
+app.post('/products', (req, res) => {
+    postRequest++
+    console.log("products POST: received request")
+    console.log(`Processed Request Count--> GET:${getRequest}, POST: ${postRequest}`)
+    const bodyData = req.body;
+    dataStore.products.push(bodyData)
+    // console.log(bodyData)
+    console.log("products POST: sending response")
+    res.json({message:'Product added successfully',bodyData})
 })
 
 app.listen(port,()=>{

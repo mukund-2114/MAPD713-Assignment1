@@ -30,6 +30,11 @@ app.post('/products', (req, res) => {
     res.json({message:'Product added successfully',bodyData})
 })
 
+app.delete('/products', (req, res) => {
+    dataStore.products = []
+    res.json({message:"All products deleted"})
+})
+
 app.listen(port,()=>{
     console.log(`Server listening at: http://localhost:${port} `)
 })
